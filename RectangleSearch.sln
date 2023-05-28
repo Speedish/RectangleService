@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RectangleSearch.Api", "RectangleSearchAPI\RectangleSearch.Api.csproj", "{43C1B513-5BF7-44EE-8212-22169CFC27FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RectangleSearch.DataAccess", "RectangleSearchAPI.DataAccess\RectangleSearch.DataAccess.csproj", "{55C5FCD2-443C-43F0-AEFD-5DC1D81DFE96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43C1B513-5BF7-44EE-8212-22169CFC27FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C1B513-5BF7-44EE-8212-22169CFC27FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C1B513-5BF7-44EE-8212-22169CFC27FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C1B513-5BF7-44EE-8212-22169CFC27FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C5FCD2-443C-43F0-AEFD-5DC1D81DFE96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C5FCD2-443C-43F0-AEFD-5DC1D81DFE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C5FCD2-443C-43F0-AEFD-5DC1D81DFE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C5FCD2-443C-43F0-AEFD-5DC1D81DFE96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99331634-0EA7-4873-9EE3-6D7B8EE19B7D}
+	EndGlobalSection
+EndGlobal
