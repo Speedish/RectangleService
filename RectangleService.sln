@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RectangleService.Core.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RectangleService.Infrastructure.Tests", "Tests\RectangleService.Infrastructure.Tests\RectangleService.Infrastructure.Tests.csproj", "{E86F9529-095F-432D-8D7C-6DD112CE0605}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RectangleService.DB", "Src\RectangleService.DB\RectangleService.DB.sqlproj", "{DF49BFE2-D3C7-47D1-8500-590B46C0974C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{E86F9529-095F-432D-8D7C-6DD112CE0605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E86F9529-095F-432D-8D7C-6DD112CE0605}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E86F9529-095F-432D-8D7C-6DD112CE0605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,12 +68,13 @@ Global
 		{A60C0CFC-86AA-46B9-9565-08C0F7BDD809} = {5284AD33-5118-459E-8008-5E8822848BFC}
 		{AC0D8199-AE40-400B-8AF4-A901A0037D41} = {5284AD33-5118-459E-8008-5E8822848BFC}
 		{E86F9529-095F-432D-8D7C-6DD112CE0605} = {5284AD33-5118-459E-8008-5E8822848BFC}
+		{DF49BFE2-D3C7-47D1-8500-590B46C0974C} = {3728B778-E5AB-4328-9280-475BD66A6336}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99331634-0EA7-4873-9EE3-6D7B8EE19B7D}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 8
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/amendracode
 		SccLocalPath0 = .
@@ -93,5 +102,9 @@ Global
 		SccProjectTopLevelParentUniqueName6 = RectangleService.sln
 		SccProjectName6 = Tests/RectangleService.Infrastructure.Tests
 		SccLocalPath6 = Tests\\RectangleService.Infrastructure.Tests
+		SccProjectUniqueName7 = Src\\RectangleService.DB\\RectangleService.DB.sqlproj
+		SccProjectTopLevelParentUniqueName7 = RectangleService.sln
+		SccProjectName7 = Src/RectangleService.DB
+		SccLocalPath7 = Src\\RectangleService.DB
 	EndGlobalSection
 EndGlobal
