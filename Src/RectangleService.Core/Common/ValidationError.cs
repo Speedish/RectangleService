@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RectangleService.Infrastructure.Common
+namespace RectangleService.Core.Common
 {
+    /// <summary>
+    /// ValidationError
+    /// </summary>
     public class ValidationError
     {
         /// <summary>

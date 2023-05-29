@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RectangleService.Infrastructure.Domain.Models;
+using RectangleService.Core.Models;
 
-namespace RectangleService.Api.Services
+namespace RectangleService.Core.Interfaces.Services
 {
     /// <summary>
     /// IUserService Interface
@@ -15,13 +15,5 @@ namespace RectangleService.Api.Services
         /// <param name="password">The password.</param>
         /// <returns></returns>
         public Task<IdentityResult> CreateUserAsync(User user, string password);
-
-        /// <summary>
-        /// Authenticates the user.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public bool AuthenticateUser(string username, string password);
     }
 }

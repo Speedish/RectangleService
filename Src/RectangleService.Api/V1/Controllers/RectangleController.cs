@@ -1,28 +1,43 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RectangleService.Infrastructure.Domain.Models;
-using RectangleService.Api.Services;
-using System.Collections.Generic;
+using RectangleService.Core.Interfaces.Services;
+using RectangleService.Core.Models;
 
 namespace RectangleService.Api.V1.Controllers
 {
+    /// <summary>
+    /// RectangleController
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = "BasicAuthentication")]
     public class RectangleController : ControllerBase
     {
+        /// <summary>
+        /// The rectangle service
+        /// </summary>
         private readonly IRectangleService _rectangleService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RectangleController"/> class.
+        /// </summary>
+        /// <param name="rectangleService">The rectangle service.</param>
+        /// <exception cref="System.ArgumentNullException">rectangleService</exception>
         public RectangleController(IRectangleService rectangleService)
         {
-            _rectangleService = rectangleService;
+            _rectangleService = rectangleService ?? throw new ArgumentNullException(nameof(rectangleService));
         }
 
+        /// <summary>
+        /// Searches the rectangles.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
         [HttpPost("search")]
-        public IActionResult SearchRectangles([FromBody] CoordinateInput input)
+        public async Task<ActionResult<List<Rectangle>>> SearchRectangles([FromBody] CoordinateInput input)
         {
-            var rectangles = _rectangleService.SearchRectangles(input);
+            var rectangles = _rectangleService.SearchRectangles(input).ConfigureAwait(false);
             return Ok(rectangles);
         }
 

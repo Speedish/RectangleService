@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
-using RectangleService.Infrastructure.Data;
-using RectangleService.Infrastructure.Domain.Models;
 using RectangleService.Api.Auth;
-using RectangleService.Api.Services;
 using System.Reflection;
+using RectangleService.Infrastructure.Context;
+using RectangleService.Core.Interfaces.Services;
+using RectangleService.Core.Services;
+using RectangleService.Core.Models;
+using RectangleService.Core.Interfaces.Repositories;
+using RectangleService.Infrastructure.Repositories;
 
 namespace RectangleService.Api
 {
@@ -39,7 +42,7 @@ namespace RectangleService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<RectangleContext>()
+                    .AddEntityFrameworkStores<RectangleDBContext>()
                     .AddDefaultTokenProviders();
 
             services.AddScoped<UserManager<User>>();
@@ -48,16 +51,23 @@ namespace RectangleService.Api
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            services.AddDbContext<RectangleContext>(options =>
+            services.AddDbContext<RectangleDBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             // HttpContext Accessor service
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<IUserService, UserService>();
+            // Register the repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRectangleRepository, RectangleRepository>();
 
-            services.AddScoped<IRectangleService, RectangleService.Api.Services.RectangleService>();
+            // Register the services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRectangleService, RectangleService.Core.Services.RectangleService>();
+
+            // Register AutoMapper
+            services.AddAutoMapper(typeof(Startup));
 
             services
                 .AddAuthentication(o =>
@@ -72,8 +82,8 @@ namespace RectangleService.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Covius IDP API",
-                    Description = "Covius Identity Provider - Supporting APIs"
+                    Title = "RectangleService API",
+                    Description = "Rectangle Service"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

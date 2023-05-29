@@ -6,8 +6,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RectangleService.Infrastructure.Common
+namespace RectangleService.Core.Common
 {
+    /// <summary>
+    /// ValidationErrorResponse
+    /// </summary>
     public class ValidationErrorResponse
     {
         /// <summary>

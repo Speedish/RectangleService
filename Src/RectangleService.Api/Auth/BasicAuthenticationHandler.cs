@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using RectangleService.Infrastructure.Common;
-using RectangleService.Infrastructure.Data;
-using RectangleService.Infrastructure.Domain.Models;
+using RectangleService.Core.Common;
+using RectangleService.Core.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
@@ -12,10 +11,25 @@ using System.Text.Encodings.Web;
 
 namespace RectangleService.Api.Auth
 {
+    /// <summary>
+    /// BasicAuthenticationHandler
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Authentication.AuthenticationHandler&lt;Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions&gt;" />
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        /// <summary>
+        /// The HTTP context accessor
+        /// </summary>
         private IHttpContextAccessor _httpContextAccessor;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BasicAuthenticationHandler"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        /// <param name="loggerFactory">The logger factory.</param>
+        /// <param name="encoder">The encoder.</param>
+        /// <param name="clock">The clock.</param>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory loggerFactory,
@@ -28,6 +42,12 @@ namespace RectangleService.Api.Auth
             _httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// Allows derived types to handle authentication.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticateResult" />.
+        /// </returns>
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             // skip authentication if endpoint has [AllowAnonymous] attribute
@@ -37,8 +57,6 @@ namespace RectangleService.Api.Auth
 
             if (!Request.Headers.ContainsKey("Authorization"))
             {
-                //_logger.LogError(String.Format(Messages.ApiAuthenticateMissingAuthHeaderMessage) + " | {Category} {Feature}", LogCategory.Api, LogFeature.ApiUserAuthenticate);
-
                 _httpContextAccessor.HttpContext.Response.Headers["WWW-Authenticate"] = "Basic";
                 return AuthenticateResult.Fail(Messages.ApiAuthenticateMissingAuthHeaderMessage);
             }
@@ -57,27 +75,17 @@ namespace RectangleService.Api.Auth
                 var user = await userManager.FindByNameAsync(username);
                 if (user == null)
                 {
-                    //_logger.LogError(String.Format(Messages.ApiAuthenticateUserNotFoundMessage) + " | {Category} {Feature}", LogCategory.Api, LogFeature.ApiUserAuthenticate);
                     return AuthenticateResult.Fail("ApiAuthenticateUserNotFoundMessage");
                 }
 
                 SignInResult result = await signInManager.PasswordSignInAsync(username, password, false, lockoutOnFailure: false);
 
                 if (!result.Succeeded)
-                {
-                    //_logger.LogError(String.Format(Messages.ApiAuthenticateInvalidCredentialsMessage) + " | {Category} {Feature}", LogCategory.Api, LogFeature.ApiUserAuthenticate);
-                    
+                {                    
                     return AuthenticateResult.Fail(Messages.ApiAuthenticateInvalidCredentialsMessage);
                 }
                 else
-                {
-                    //var userManager = _httpContextAccessor.HttpContext.RequestServices.GetService<UserManager<User>>();
-                    var dbContext = _httpContextAccessor.HttpContext.RequestServices.GetService<RectangleContext>();
-
-                    user = await userManager.FindByNameAsync(username);
-                    var roles = await userManager.GetRolesAsync(user);
-
-                    var tenantUser = dbContext.Users.Where(x => x.Id == user.Id).FirstOrDefault();
+                {    
 
                     List<Claim> claims = new List<Claim>()
                         {
@@ -85,23 +93,16 @@ namespace RectangleService.Api.Auth
                         new Claim(ClaimTypes.Name, user.UserName),
                     };
 
-                    foreach (var role in roles)
-                    {
-                        claims.Add(new Claim(ClaimTypes.Role, role));
-                    }
-
                     var identity = new ClaimsIdentity(claims.ToArray(), Scheme.Name);
                     var principal = new ClaimsPrincipal(identity);
                     var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-                    //_logger.LogInformation(String.Format(Messages.ApiAuthenticatedSuccessMessage, user.Id) + " | {Category} {Feature}", LogCategory.Api, LogFeature.ApiUserAuthenticate);
 
                     return AuthenticateResult.Success(ticket);
                 }
             }
             catch
             {
-                //_logger.LogError(String.Format(Messages.ApiAuthenticateInvalidAuthHeaderMessage) + " | {Category} {Feature}", LogCategory.Api, LogFeature.ApiUserAuthenticate);
                 return AuthenticateResult.Fail(Messages.ApiAuthenticateInvalidAuthHeaderMessage);
             }
         }
