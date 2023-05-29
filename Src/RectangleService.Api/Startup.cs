@@ -58,6 +58,8 @@ namespace RectangleService.Api
 
             // Register AutoMapper
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddRouting(options => options.LowercaseUrls=true);
        
         }
         /// <summary>

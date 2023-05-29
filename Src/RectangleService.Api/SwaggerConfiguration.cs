@@ -9,9 +9,16 @@
                 throw new ArgumentNullException(nameof(services));
             }
 
+            string serviceDescription = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "ServiceDescription.md"));
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "RectangleService.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "RectangleService.Api", Version = "v1" , Description = serviceDescription });
+
+                string xmlFile = $"{typeof(SwaggerConfiguration).Assembly.GetName().Name}.xml";
+
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFile));
+                c.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["controller"]}_{e.ActionDescriptor.RouteValues["action"]}");
             
             });
 
