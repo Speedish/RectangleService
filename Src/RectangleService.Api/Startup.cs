@@ -1,18 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.OpenApi.Models;
-using RectangleService.Api.Auth;
-using System.Reflection;
-using RectangleService.Infrastructure.Context;
-using RectangleService.Core.Interfaces.Services;
-using RectangleService.Core.Services;
-using RectangleService.Core.Models;
-using RectangleService.Core.Interfaces.Repositories;
-using RectangleService.Infrastructure.Repositories;
-
-namespace RectangleService.Api
+﻿namespace RectangleService.Api
 {
     /// <summary>
     /// Startup Class
@@ -67,10 +53,10 @@ namespace RectangleService.Api
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="env">The env.</param>
-        public void Configure(WebApplication app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -80,10 +66,6 @@ namespace RectangleService.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            app.MapControllers();
-
-            app.Run();
         }
     }
 }
