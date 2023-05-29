@@ -1,7 +1,16 @@
 ﻿namespace RectangleService.Api
 {
+    /// <summary>
+    /// SwaggerConfiguration
+    /// </summary>
     public static class SwaggerConfiguration
     {
+        /// <summary>
+        /// Configures the swagger.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">services</exception>
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             if (services == null)
@@ -23,8 +32,14 @@
             });
 
             return services;
-        }    
-        
+        }
+
+        /// <summary>
+        /// Configures the swagger.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">app</exception>
         public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app)
         {
             if (app == null)

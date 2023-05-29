@@ -13,8 +13,22 @@ using RectangleService.Infrastructure.Repositories;
 
 namespace RectangleService.Api
 {
+    /// <summary>
+    /// DependencyInjection
+    /// </summary>
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Configures the dependency injection.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// services
+        /// or
+        /// configuration
+        /// </exception>
         public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             if (services == null)
@@ -25,15 +39,7 @@ namespace RectangleService.Api
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
-            }
-
-            services
-                .AddAuthentication(o =>
-                {
-                    o.DefaultAuthenticateScheme = "BasicAuthentication";
-                    o.DefaultChallengeScheme = "BasicAuthentication";
-                })
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            }            
 
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<RectangleDBContext>()
@@ -55,6 +61,14 @@ namespace RectangleService.Api
             // Register the services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRectangleService, RectangleService.Core.Services.RectangleService>();
+
+            services
+                .AddAuthentication(o =>
+                {
+                    o.DefaultAuthenticateScheme = "BasicAuthentication";
+                    o.DefaultChallengeScheme = "BasicAuthentication";
+                })
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             return services;
         }

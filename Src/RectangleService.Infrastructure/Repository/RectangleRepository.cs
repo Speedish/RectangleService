@@ -79,13 +79,15 @@ namespace RectangleService.Infrastructure.Repositories
         /// <returns></returns>
         public async Task<List<Rectangle>> SearchRectangles(CoordinateInput input)
         {
-            var rectangles = await _dbContext.Rectangles
-                .Where(r =>
-                    input.Coordinates.Any(c => c.X >= r.X && c.X <= (r.X + r.Width) && c.Y >= r.Y && c.Y <= (r.Y + r.Height)))
-                .ToListAsync().ConfigureAwait(false);
+            var allRectangles = await _dbContext.Rectangles.ToListAsync().ConfigureAwait(false);
 
-            return _mapper.Map<List<Rectangle>>(rectangles);
+            var filteredRectangles = allRectangles
+                .Where(r => input.Coordinates.Any(c => c.X >= r.X && c.X <= (r.X + r.Width) && c.Y >= r.Y && c.Y <= (r.Y + r.Height)))
+                .ToList();
+
+            return _mapper.Map<List<Rectangle>>(filteredRectangles);
         }
+
 
         /// <summary>
         /// Updates the rectangle.

@@ -46,7 +46,11 @@
             services.AddAutoMapper(typeof(Startup));
 
             services.AddRouting(options => options.LowercaseUrls=true);
-       
+
+            services.AddControllersWithViews()
+                    .AddApplicationPart(typeof(Startup).Assembly)
+                    .AddControllersAsServices();
+
         }
         /// <summary>
         /// Configures the specified application.
@@ -65,7 +69,17 @@
 
             app.UseHttpsRedirection();
 
+            app.UseRouting();
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
         }
     }
 }

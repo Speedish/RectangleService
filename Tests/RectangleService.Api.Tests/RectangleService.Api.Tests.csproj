@@ -31,4 +31,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\RectangleService.Api\RectangleService.Api.csproj" />
+  </ItemGroup>
+
 </Project>

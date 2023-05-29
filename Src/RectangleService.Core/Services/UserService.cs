@@ -20,7 +20,7 @@ namespace RectangleService.Core.Services
         /// <summary>
         /// The logger
         /// </summary>
-        public readonly ILogger<RectangleService> _logger;
+        public readonly ILogger<UserService> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService" /> class.
@@ -28,7 +28,7 @@ namespace RectangleService.Core.Services
         /// <param name="userRepository">The user repository.</param>
         /// <param name="logger">The logger.</param>
         /// <exception cref="System.ArgumentNullException">userRepository</exception>
-        public UserService(IUserRepository userRepository, ILogger<RectangleService> logger)
+        public UserService(IUserRepository userRepository, ILogger<UserService> logger)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));

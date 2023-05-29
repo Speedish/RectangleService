@@ -35,11 +35,11 @@ namespace RectangleService.Api.V1.Controllers
         /// <param name="input">The input.</param>
         /// <returns></returns>
         [HttpPost("search")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<Rectangle>>> SearchRectangles([FromBody] CoordinateInput input)
         {
             var rectangles = await _rectangleService.SearchRectangles(input).ConfigureAwait(false);
